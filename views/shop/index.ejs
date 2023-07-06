@@ -20,9 +20,7 @@
                         <%= product.description%>
                     </p>
                 </div>
-                <div class="card__actions">
-                    <button class="btn">Add to Cart</button>
-                </div>
+                <%- include('../includes/add-to-cart.ejs', {product})%>
             </article>
         <%}%>
     </div>

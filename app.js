@@ -1,5 +1,6 @@
 const path = require("path");
 const express = require("express");
+const db = require("./utils/database");
 
 const bodyParser = require("body-parser");
 const shopRouter = require("./routes/shop");
