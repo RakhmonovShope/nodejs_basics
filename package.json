@@ -21,6 +21,7 @@
     "express-handlebars": "^3.0.0",
     "mysql2": "^3.4.4",
     "prettier": "^2.8.4",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "sequelize": "^6.32.1"
   }
 }
