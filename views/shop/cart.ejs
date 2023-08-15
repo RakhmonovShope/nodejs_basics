@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="/css/cart.css">
 </head>
 
+
 <body>
 <%- include('../includes/navigation.ejs') %>
 <main>
@@ -10,11 +11,10 @@
             <ul class="cart__item-list">
                 <% for(let product of products) { %>
                     <li class="cart__item">
-                        <p><%= product.title %> (<%= product.cartItem.quantity %>)</p>
+                        <p><%= product.title %> (<%= product.quantity %>)</p>
                         <form action="/cart-delete-item" method="post">
                             <button type="submit" class="btn">Delete</button>
                             <input type="hidden" name="productId" value="<%= product._id %>">
-<!--                            <input type="hidden" name="productPrice" value="<%= product.cartItem.id %>">-->
                         </form>
                     </li>
                 <% } %>

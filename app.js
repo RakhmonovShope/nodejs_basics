@@ -3,7 +3,7 @@ const express = require("express");
 
 const bodyParser = require("body-parser");
 const errorController = require("./contollers/error");
-// const User = require("./models/user");
+const User = require("./models/user");
 const { mongoConnect, getDb } = require("./utils/database");
 
 const adminRoutes = require("./routes/admin");
@@ -18,15 +18,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  // User.findByPk(1)
-  //   .then((user) => {
-  //     req.user = user;
-  //     next();
-  //   })
-  //   .catch((err) => {
-  //     console.log("app.js user err", err);
-  //   });
-  next();
+  User.findById("64db9c4eddbe24f50b7779c0")
+    .then((user) => {
+      const { name, email, cart, _id } = user;
+
+      req.user = new User(name, email, cart, _id);
+      next();
+    })
+    .catch((err) => {
+      console.log("app.js user err", err);
+    });
 });
 
 app.use(shopRouter);

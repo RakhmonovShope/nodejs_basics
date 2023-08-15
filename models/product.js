@@ -2,12 +2,14 @@ const { ObjectId } = require("mongodb");
 const { getDb } = require("../utils/database");
 
 class Product {
-  constructor(title, imageUrl, price, description, id) {
+  constructor(title, imageUrl, price, description, id, userId, cart) {
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
     this.price = price;
     this._id = id ? new ObjectId(id) : null;
+    this.userId = userId;
+    this.cart = cart;
   }
 
   save() {
@@ -30,6 +32,18 @@ class Product {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  addToCart(product) {
+    const updatedCart = { items: [{ ...product, quantity: 1 }] };
+    const db = getDb();
+
+    return db.collection("users").updateOne(
+      { _id: new ObjectId(this._id) },
+      {
+        $set: { cart: updatedCart },
+      }
+    );
   }
 
   static fetchAll() {
@@ -70,27 +84,5 @@ class Product {
       .catch((err) => console.log(err));
   }
 }
-
-// const Product = sequalize.define("product", {
-//   id: {
-//     type: Sequalize.INTEGER,
-//     autoIncrement: true,
-//     allowNull: false,
-//     primaryKey: true,
-//   },
-//   title: Sequalize.STRING,
-//   price: {
-//     type: Sequalize.DOUBLE,
-//     allowNull: false,
-//   },
-//   imageUrl: {
-//     type: Sequalize.STRING,
-//     allowNull: false,
-//   },
-//   description: {
-//     type: Sequalize.STRING,
-//     allowNull: false,
-//   },
-// });
 
 module.exports = Product;
