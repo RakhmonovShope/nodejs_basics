@@ -4,25 +4,46 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "start-server": "nodemon app.js"
+    "start": "nodemon --exec babel-node app.js",
+    "start-server": "nodemon app.js",
+    "lint:fix": "eslint --fix ./*.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "nodemon": "^2.0.21"
+    "@babel/core": "^7.22.10",
+    "@babel/node": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "eslint": "^8.47.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-n": "^16.0.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-require-sort": "^1.3.0",
+    "nodemon": "^2.0.21",
+    "prettier": "^3.0.2"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^3.1.1",
+    "cookie-parser": "^1.4.6",
+    "crypto": "^1.0.1",
+    "csurf": "^1.11.0",
     "ejs": "^3.1.9",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "express": "^4.18.2",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.17.3",
     "mongodb": "^5.7.0",
     "mongoose": "^7.4.3",
     "mysql2": "^3.4.4",
-    "prettier": "^2.8.4",
+    "nodemailer": "^6.9.4",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "pug": "^3.0.2",
     "sequelize": "^6.32.1"
   }

@@ -1,4 +1,5 @@
 <form action="/cart" method="post" class="card__actions">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <button class="btn">Add to Cart</button>
     <input type="text" name="productId" style='display: none' value="<%= product._id%>">
 </form>

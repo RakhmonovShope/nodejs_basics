@@ -180,6 +180,21 @@ form {
   text-align: center;
 }
 
+.user-message {
+  margin: auto;
+  width: 90%;
+  border: 1px solid #053db6;
+  padding: 1rem;
+  border-radius: 3px;
+  background: #64c1f7;
+  text-align: center;
+}
+
+.user-message--error {
+  border-color: red;
+  background: rgb(235, 128, 128);
+}
+
 .card__header h1,
 .card__content h1,
 .card__content h2,

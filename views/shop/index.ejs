@@ -20,7 +20,9 @@
                         <%= product.description%>
                     </p>
                 </div>
-                <%- include('../includes/add-to-cart.ejs', {product})%>
+                <% if(isAuthenticated) { %>
+                    <%- include('../includes/add-to-cart.ejs', {product})%>
+                <%}%>
             </article>
         <%}%>
     </div>

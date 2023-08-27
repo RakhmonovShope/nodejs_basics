@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { model, Schema } from "mongoose";
 
 const orderSchema = new Schema({
   products: [
@@ -8,7 +8,7 @@ const orderSchema = new Schema({
     },
   ],
   user: {
-    name: {
+    email: {
       type: String,
       required: true,
     },
@@ -20,4 +20,4 @@ const orderSchema = new Schema({
   },
 });
 
-module.exports = model("Order", orderSchema);
+export default model("Order", orderSchema);
