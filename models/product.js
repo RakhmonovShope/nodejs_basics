@@ -1,30 +1,30 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 const productSchema = new Schema({
   title: {
     type: String,
-    required: true,
+    required: true
   },
   imageUrl: {
     type: String,
-    required: true,
+    required: true
   },
   price: {
     type: Number,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   userId: {
     type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+    ref: 'User',
+    required: true
+  }
 });
 
-export default model("Product", productSchema);
+export default model('Product', productSchema);
 
 // const { ObjectId } = require("mongodb");
 // const { getDb } = require("../utils/database");

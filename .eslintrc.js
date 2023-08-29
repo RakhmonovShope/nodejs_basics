@@ -1,46 +1,46 @@
 module.exports = {
-  plugins: ["require-sort", "simple-import-sort"],
+  plugins: ['require-sort', 'simple-import-sort'],
   env: {
     browser: true,
     commonjs: true,
-    es2021: true,
+    es2021: true
   },
-  extends: "standard",
+  extends: 'standard',
   overrides: [
     {
       env: {
-        node: true,
+        node: true
       },
-      files: [".eslintrc.{js,cjs}"],
+      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
-        sourceType: "script",
-      },
+        sourceType: 'script'
+      }
     },
     {
-      files: ["*.js", "*.ts",],
+      files: ['*.js', '*.ts'],
       rules: {
-        "simple-import-sort/imports": [
-          "error",
+        'simple-import-sort/imports': [
+          'error',
           {
             groups: [
-              ["^\\u0000"],
+              ['^\\u0000'],
               // Internal packages.
-              ["^controllers(/.*|$)"],
-              ["^middleware(/.*|$)"],
-              ["^models(/.*|$)"],
-              ["^public(/.*|$)"],
-              ["^routes(/.*|$)"],
-              ["^utils(/.*|$)"],
-              ["^views(/.*|$)"],
+              ['^controllers(/.*|$)'],
+              ['^middleware(/.*|$)'],
+              ['^models(/.*|$)'],
+              ['^public(/.*|$)'],
+              ['^routes(/.*|$)'],
+              ['^utils(/.*|$)'],
+              ['^views(/.*|$)'],
               // Side effect imports.
               // Parent imports. Put `..` last.
-              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
               // Other relative imports. Put same-folder imports and `.` last.
-              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
               // images imports
-              ["^.+\\.(svg|jpg|png)$"],
+              ['^.+\\.(svg|jpg|png)$'],
               // Style imports.
-              ["^.+\\.?(css)$"]
+              ['^.+\\.?(css)$']
             ]
           }
         ]
@@ -48,14 +48,15 @@ module.exports = {
     }
   ],
   parserOptions: {
-    ecmaVersion: "latest",
+    ecmaVersion: 'latest'
   },
   rules: {
-    "comma-dangle": "off",
-    "no-unexpected-multiline": "off",
-    quotes: ["off"],
-    semi: "off",
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
-  },
+    'comma-dangle': 'off',
+    'no-unexpected-multiline': 'off',
+    quotes: ['off'],
+    semi: 'off',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'prefer-promise-reject-errors': 'off'
+  }
 };

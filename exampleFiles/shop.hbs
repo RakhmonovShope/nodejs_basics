@@ -1,25 +1,22 @@
 <main>
   {{#if hasProduct}}
-    <div class="grid">
+    <div class='grid'>
       {{#each prods}}
-        <article class="card product-item">
-          <header class="card__header">
-            <h1 class="product__tile">{{this.title}}</h1>
+        <article class='card product-item'>
+          <header class='card__header'>
+            <h1 class='product__tile'>{{this.title}}</h1>
           </header>
-          <div class="card__image">
-            <img
-              src="https://cdn.pixabay.com/photo/2023/04/30/18/26/flower-7961220__480.jpg"
-              alt="Hello"
-            />
+          <div class='card__image'>
+            <img src='https://cdn.pixabay.com/photo/2023/04/30/18/26/flower-7961220__480.jpg' alt='Hello' />
           </div>
-          <div class="card__content">
-            <h2 class="product__price">$19.99</h2>
-            <p class="product__description">
+          <div class='card__content'>
+            <h2 class='product__price'>$19.99</h2>
+            <p class='product__description'>
               A very interesting book about so many
             </p>
           </div>
-          <div class="card__actions">
-            <button class="btn">Add to Cart</button>
+          <div class='card__actions'>
+            <button class='btn'>Add to Cart</button>
           </div>
         </article>
       {{/each}}

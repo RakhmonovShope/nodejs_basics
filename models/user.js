@@ -1,32 +1,32 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
+  // name: {
+  //   type: String,
+  //   required: true,
+  // },
   email: {
     type: String,
-    required: true,
+    required: true
   },
   resetToken: String,
   resetTokenExpiration: Date,
   password: {
     type: String,
-    required: true,
+    required: true
   },
   cart: {
     items: [
       {
-        productId: { type: Schema.Types.ObjectId, ref: "Product" },
-        quantity: { type: Number, required: true },
-      },
-    ],
-  },
+        productId: { type: Schema.Types.ObjectId, ref: 'Product' },
+        quantity: { type: Number, required: true }
+      }
+    ]
+  }
 });
 
 userSchema.methods.addToCart = function (product) {
-  const cartProductIndex = this.cart.items.findIndex((cp) => {
+  const cartProductIndex = this.cart.items.findIndex(cp => {
     return cp.productId.toString() === product._id.toString();
   });
   let newQuantity = 1;
@@ -38,12 +38,12 @@ userSchema.methods.addToCart = function (product) {
   } else {
     updatedCartItems.push({
       productId: product._id,
-      quantity: newQuantity,
+      quantity: newQuantity
     });
   }
 
   const updatedCart = {
-    items: updatedCartItems,
+    items: updatedCartItems
   };
 
   this.cart = updatedCart;
@@ -52,9 +52,7 @@ userSchema.methods.addToCart = function (product) {
 };
 
 userSchema.methods.removeFromCart = function (productId) {
-  const updatedItems = this.cart.items.filter(
-    (item) => item.productId.toString() !== productId.toString()
-  );
+  const updatedItems = this.cart.items.filter(item => item.productId.toString() !== productId.toString());
 
   this.cart.items = updatedItems;
 
@@ -67,4 +65,4 @@ userSchema.methods.clearCart = function () {
   return this.save();
 };
 
-export default model("User", userSchema);
+export default model('User', userSchema);

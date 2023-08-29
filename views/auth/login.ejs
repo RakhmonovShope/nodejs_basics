@@ -4,24 +4,23 @@
 <link rel="stylesheet" href="/css/message.css">
 </head>
 
-
 <body>
 <%- include('../includes/navigation.ejs') %>
 <main>
-    <form class="login-form" action="/login" method="POST">
+    <form class="login-form" action="/login" method="POST" novalidate>
         <% if(errorMessage) { %>
             <div class="user-message user-message--error"><%= errorMessage %></div>
         <%}%>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input type="hidden" autocomplete="off">
-        <div class="form-control">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" autofocus>
-        </div>
-        <div class="form-control">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
-        </div>
+            <div class="form-control">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="<%= oldInput.email%>" class="<%= validationMessages.find(i => i.param === 'email') ? 'invalid': '' %>">
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" value="<%= oldInput.password%>" class="<%= validationMessages.find(i => i.param === 'password') ? 'invalid': '' %>">
+            </div>
 
             <div class="centered">
                 <button class="btn" type="submit">Login</button>
