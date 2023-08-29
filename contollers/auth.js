@@ -36,15 +36,13 @@ export const getReset = (req, res, next) => {
   });
 };
 
-export const postLogin = (req, res) => {
+export const postLogin = (req, res, next) => {
   const { email, password } = req.body;
 
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     const { msg } = errors.array()[0];
-
-    console.log('errors.array()', errors.array());
 
     return res.status(422).render('auth/login', {
       pageTitle: 'Sign In',
@@ -103,7 +101,12 @@ export const postLogin = (req, res) => {
         });
       });
     })
-    .then(err => console.log(err));
+    .then(err => console.log(err))
+    .catch(err => {
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
+    });
 };
 
 export const getSignup = (req, res, next) => {
@@ -171,7 +174,11 @@ export const postSignup = (req, res, next) => {
 
       return etherealMail(message, messageUrl => console.log(messageUrl));
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
+    });
 };
 
 export const postLogout = (req, res) => {
@@ -219,7 +226,11 @@ export const postReset = (req, res, next) => {
           res.redirect('/');
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        const error = new Error(err);
+        err.statusCode = 500;
+        return next(error);
+      });
   });
 };
 
@@ -238,7 +249,11 @@ export const getNewPassword = (req, res, next) => {
         resetToken: token
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
+    });
 };
 
 export const postNewPassword = (req, res, next) => {
@@ -260,5 +275,9 @@ export const postNewPassword = (req, res, next) => {
     .then(result => {
       res.redirect('/login');
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
+    });
 };

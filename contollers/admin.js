@@ -12,7 +12,7 @@ export const getAddProduct = (req, res) => {
   });
 };
 
-export const postAddProducts = (req, res) => {
+export const postAddProducts = (req, res, next) => {
   const { imageUrl, title, description, price } = req.body;
 
   const errors = validationResult(req);
@@ -49,7 +49,9 @@ export const postAddProducts = (req, res) => {
       res.redirect('/admin/products');
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
     });
 };
 
@@ -63,11 +65,13 @@ export const getProducts = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log('Admin get products err', err);
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
     });
 };
 
-export const getEditProduct = (req, res) => {
+export const getEditProduct = (req, res, next) => {
   const { productId } = req.params;
   const editMode = req.query.edit;
 
@@ -92,11 +96,13 @@ export const getEditProduct = (req, res) => {
       }
     })
     .catch(err => {
-      console.log('Admin get edit product err', err);
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
     });
 };
 
-export const postEditProduct = (req, res) => {
+export const postEditProduct = (req, res, next) => {
   const { id, title, imageUrl, description, price } = req.body;
 
   const errors = validationResult(req);
@@ -135,10 +141,14 @@ export const postEditProduct = (req, res) => {
         res.redirect('/admin/products');
       });
     })
-    .catch(err => console.log('Admin post edit product', err));
+    .catch(err => {
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
+    });
 };
 
-export const postDeleteProduct = (req, res) => {
+export const postDeleteProduct = (req, res, next) => {
   const { productId } = req.body;
 
   Product.deleteOne({ _id: productId, userId: req.user._id })
@@ -146,5 +156,9 @@ export const postDeleteProduct = (req, res) => {
       console.log('Product deleted!');
       res.redirect('/admin/products');
     })
-    .catch(err => console.log('Admin product delete err', err));
+    .catch(err => {
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
+    });
 };

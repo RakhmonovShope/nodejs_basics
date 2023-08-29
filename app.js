@@ -1,4 +1,4 @@
-import { get404 } from './contollers/error';
+import * as errorRoutes from './contollers/error';
 import User from './models/user';
 import adminRoutes from './routes/admin';
 import authRoutes from './routes/auth';
@@ -41,6 +41,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(csrfProtection);
 
 app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken();
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+
+  next();
+});
+
+app.use((req, res, next) => {
   if (!req.session.user) return next();
 
   User.findById(req.session.user._id)
@@ -54,22 +61,23 @@ app.use((req, res, next) => {
       }
     })
     .catch(err => {
-      console.log('app.js user err', err);
+      next(new Error(err));
     });
-});
-
-app.use((req, res, next) => {
-  res.locals.csrfToken = req.csrfToken();
-  res.locals.isAuthenticated = req.session.isLoggedIn;
-
-  next();
 });
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 
-app.use(get404);
+app.use('/500', errorRoutes.get500);
+app.use(errorRoutes.get404);
+
+app.use((err, req, res, next) => {
+  res.status(500).render('500', {
+    pageTitle: 'Error page',
+    path: '/500'
+  });
+});
 
 mongoose
   .connect(MONGODB_URI)

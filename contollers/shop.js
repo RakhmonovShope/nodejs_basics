@@ -116,7 +116,11 @@ const postCartDeleteProduct = (req, res, next) => {
     .then(result => {
       res.redirect('/cart');
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
+    });
 };
 
 const postOrder = (req, res, next) => {
@@ -144,7 +148,11 @@ const postOrder = (req, res, next) => {
     .then(result => {
       res.redirect('/orders');
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
+    });
 };
 
 const getOrders = (req, res, next) => {
@@ -156,7 +164,11 @@ const getOrders = (req, res, next) => {
         orders
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      err.statusCode = 500;
+      return next(error);
+    });
 };
 
 export { getCart, getIndex, getOrders, getProduct, getProducts, postCart, postCartDeleteProduct, postOrder };
