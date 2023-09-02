@@ -5,19 +5,16 @@ import express from 'express';
 import { body } from 'express-validator';
 
 const router = express.Router();
-// get routes
 
 router.get('/add-product', isAuth, adminController.getAddProduct);
 router.get('/products', adminController.getProducts);
 router.get('/edit-product/:productId', isAuth, adminController.getEditProduct);
-//
-// // post routes
+
 router.post(
   '/add-product',
   isAuth,
   [
-    body('title').isString().isLength({ min: 3, max: 25 }).withMessage('title can has to be 3 to 25 characters long'),
-    body('imageUrl').isURL().withMessage('please provide a valid url for image'),
+    body('title').isString().isLength({ min: 3, max: 70 }).withMessage('title can has to be 3 to 70 characters long'),
     body('price').isFloat(),
     body('description')
       .isLength({ min: 5, max: 200 })
@@ -28,13 +25,12 @@ router.post(
 
   adminController.postAddProducts
 );
-router.post('/delete-product', isAuth, adminController.postDeleteProduct);
+
 router.post(
   '/edit-product',
   isAuth,
   [
     body('title').isString().isLength({ min: 3, max: 25 }).withMessage('title can has to be 3 to 25 characters long'),
-    body('imageUrl').isURL().withMessage('please provide a valid url for image'),
     body('price').isFloat(),
     body('description')
       .isLength({ min: 5, max: 200 })
@@ -44,5 +40,7 @@ router.post(
   ],
   adminController.postEditProduct
 );
+
+router.delete('/delete-product/:productId', isAuth, adminController.deleteProduct);
 
 module.exports = router;
